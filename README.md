@@ -1,1 +1,0 @@
-# get-mt-fuji-image
