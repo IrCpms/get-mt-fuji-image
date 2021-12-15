@@ -24,7 +24,6 @@ def calc_date(from_date: date, to_date: date) -> None:
     Example:
         >>> calc_date(date(2021,1,1), date(2021,12,31))
     """
-
     for day in range((to_date - from_date).days + 1):
         date_ = from_date + timedelta(day)
         yield date_.strftime("%Y%m%d")
