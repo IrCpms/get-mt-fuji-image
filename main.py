@@ -13,9 +13,9 @@ class location(Enum):
 
 
 def calc_date(from_date: date, to_date: date) -> None:
-    """
+    """calc_date
     Args:
-        from_date (datetime.date): Start date. 
+        from_date (datetime.date): Start date.
         to_date (datetime.date): End date.
 
     Yields:
@@ -26,8 +26,8 @@ def calc_date(from_date: date, to_date: date) -> None:
     """
 
     for day in range((to_date - from_date).days + 1):
-        date = from_date + timedelta(day)
-        yield date.strftime("%Y%m%d")
+        date_ = from_date + timedelta(day)
+        yield date_.strftime("%Y%m%d")
 
 
 def main() -> None:
@@ -45,7 +45,7 @@ def main() -> None:
     if args.from_date > args.to_date:
         raise ValueError('from_date is greater than to_date.')
 
-    if not args.location in location.__members__:
+    if args.location not in location.__members__:
         raise TypeError('Invalid location.')
 
     # String to datetime.
@@ -55,13 +55,13 @@ def main() -> None:
     # Main process.
     base_url = "https://www.pref.shizuoka.jp/~live/archive/"
     available_hours = range(args.from_hour, args.to_hour + 1)
-    for date in calc_date(from_date, to_date):
+    for date_ in calc_date(from_date, to_date):
         for hour in available_hours:
             available_hour = str(hour).zfill(2)
-            download_url = f"{base_url}{str(date)}{args.location}/{available_hour}/xl.jpg"
+            download_url = f"{base_url}{str(date_)}{args.location}/{available_hour}/xl.jpg"
 
             # Download image.
-            save_name = f"{date}_{args.location}_{available_hour}_xl.jpg"
+            save_name = f"{date_}_{args.location}_{available_hour}_xl.jpg"
             request.urlretrieve(download_url, save_name)
             print(f"{download_url} -> {save_name}")
 
